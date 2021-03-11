@@ -3,6 +3,9 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+
+	// "io/ioutil"
+	// "net/http"
 	"os"
 	"strconv"
 
@@ -12,10 +15,17 @@ import (
 )
 
 var competitionCode = map[string]int{
-	"PL": 2021,
+	"PL":  2021,
+	"SA":  2019,
+	"CL":  2001,
+	"FL1": 2015,
+	"BL1": 2002,
+	"DED": 2003,
+	"PPL": 2017,
+	"PD":  2014,
 }
 
-// Response Model
+// StandingResponse Model
 type StandingResponse struct {
 	Filter      string            `json:"filter"`
 	Competition model.Competition `json:"competition"`
