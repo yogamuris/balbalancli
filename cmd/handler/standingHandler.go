@@ -14,17 +14,6 @@ import (
 	"github.com/yogamuris/balbalancli/cmd/model"
 )
 
-var competitionCode = map[string]int{
-	"PL":  2021,
-	"SA":  2019,
-	"CL":  2001,
-	"FL1": 2015,
-	"BL1": 2002,
-	"DED": 2003,
-	"PPL": 2017,
-	"PD":  2014,
-}
-
 // StandingResponse Model
 type StandingResponse struct {
 	Filter      string            `json:"filter"`
@@ -41,7 +30,7 @@ func GetStanding(league string) error {
 		return err
 	}
 
-	// code := competitionCode[league]
+	// code := GetCompetitionCode(league)
 
 	// url := fmt.Sprintf("https://api.football-data.org/v2/competitions/%d/standings?standingType=TOTAL", code)
 

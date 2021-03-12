@@ -27,7 +27,8 @@ var standingCmd = &cobra.Command{
 	Use:   "standing",
 	Short: "Get standing of the League",
 	Long: `Get standing of the League. For example:
-	balbalan standing -L PL.`,
+	balbalan standing -l PL
+	balbalan standing --league PL`,
 
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if err := handler.GetStanding(leagueFlag); err != nil {
