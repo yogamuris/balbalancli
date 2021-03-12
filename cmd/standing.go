@@ -26,30 +26,30 @@ var leagueFlag string
 var standingCmd = &cobra.Command{
 	Use:   "standing",
 	Short: "Get standing of the League",
-	Long: `Get standing of the League. For example:
-	balbalan standing -l PL
-	balbalan standing --league PL`,
+	Long: `Get standing of the League.
+	Available league :
+	- CL  : UEFA Champions League
+	- PL  : English Premier League
+	- PD  : Primera Division
+	- SA  : Serie A
+	- BL1 : Bundesliga
+	- FL1 : League 1
+	- DED : Eredivisie
+	- PPL : Primeira Liga
+	`,
 
-	RunE: func(cmd *cobra.Command, args []string) error {
-		if err := handler.GetStanding(leagueFlag); err != nil {
-			return err
-		}
-		return nil
+	Run: func(cmd *cobra.Command, args []string) {
+		handler.GetStanding(leagueFlag)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(standingCmd)
 
-	// Here you will define your flags and configuration settings.
+	standingCmd.Flags().StringVarP(&leagueFlag, "league", "l", "All", "Get the league standing.")
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// standingCmd.PersistentFlags().String("league", "", "Standing League")
-
-	standingCmd.Flags().StringVarP(&leagueFlag, "league", "l", "", "Standing League")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// standingCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	standingCmd.Example = `
+	balbalan standing -l PL
+	balbalan standing --league PL			
+	`
 }
