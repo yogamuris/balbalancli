@@ -20,39 +20,19 @@ import (
 	"github.com/yogamuris/balbalancli/cmd/handler"
 )
 
-var leagueFlag string
+var tokenFlag string
 
-// standingCmd represents the standing command
-var standingCmd = &cobra.Command{
-	Use:   "standing",
-	Short: "Get standing of the League",
-	Long: `Get standing of the League.
-	Available league :
-	- CL  : UEFA Champions League
-	- PL  : English Premier League
-	- PD  : Primera Division
-	- SA  : Serie A
-	- BL1 : Bundesliga
-	- FL1 : League 1
-	- DED : Eredivisie
-	- PPL : Primeira Liga
-	`,
-
+// configCmd represents the config command
+var configCmd = &cobra.Command{
+	Use:   "config",
+	Short: "Setting the BalbalanCLI Configuration",
+	Long:  `Setting the BalbalanCLI Configuration`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if leagueFlag == "" {
-			leagueFlag = "All"
-		}
-		handler.GetStanding(leagueFlag)
+		handler.SetToken(tokenFlag)
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(standingCmd)
-
-	standingCmd.Flags().StringVarP(&leagueFlag, "league", "l", "All", "Get the league standing.")
-
-	standingCmd.Example = `
-	balbalan standing -l PL
-	balbalan standing --league PL			
-	`
+	rootCmd.AddCommand(configCmd)
+	configCmd.Flags().StringVarP(&tokenFlag, "token", "t", "", "Set API Token")
 }

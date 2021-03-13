@@ -11,7 +11,6 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/joho/godotenv"
 	"github.com/olekukonko/tablewriter"
 	"github.com/yogamuris/balbalancli/cmd/model"
 )
@@ -23,10 +22,22 @@ type StandingResponse struct {
 	Standing    []model.Standing  `json:"standings"`
 }
 
-// GetStanding get the league table
 func GetStanding(league string) {
-	// var standing model.Standing
-	err := godotenv.Load()
+	if league == "All" {
+		getAllStanding()
+	} else {
+		getStandingLeague(league)
+	}
+}
+
+func getAllStanding() {
+	for league := range GetAllCompetitionCode() {
+		getStandingLeague(league)
+	}
+}
+
+func getStandingLeague(league string) {
+	token, err := GetToken()
 
 	if err != nil {
 		fmt.Println(err)
@@ -37,7 +48,7 @@ func GetStanding(league string) {
 	url := fmt.Sprintf("https://api.football-data.org/v2/competitions/%d/standings?standingType=TOTAL", code)
 
 	req, _ := http.NewRequest("GET", url, nil)
-	req.Header.Add("X-Auth-Token", os.Getenv("TOKEN"))
+	req.Header.Add("X-Auth-Token", token)
 
 	res, err := http.DefaultClient.Do(req)
 
