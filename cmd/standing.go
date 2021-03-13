@@ -17,7 +17,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/yogamuris/balbalancli/cmd/handler"
+	"github.com/yogamuris/balbalancli/handler"
 )
 
 var leagueFlag string

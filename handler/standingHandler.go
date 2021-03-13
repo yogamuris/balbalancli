@@ -6,13 +6,11 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	// "io/ioutil"
-	// "net/http"
 	"os"
 	"strconv"
 
 	"github.com/olekukonko/tablewriter"
-	"github.com/yogamuris/balbalancli/cmd/model"
+	"github.com/yogamuris/balbalancli/model"
 )
 
 // StandingResponse Model
