@@ -16,6 +16,7 @@ func GetCompetitionCode(league string) int {
 	return competitionCode[league]
 }
 
+// GetAllCompetitionCode return all the competitions ID
 func GetAllCompetitionCode() map[string]int {
 	return competitionCode
 }

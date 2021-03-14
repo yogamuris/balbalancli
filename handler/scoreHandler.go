@@ -52,11 +52,12 @@ func getLeagueLatestScore(league string) error {
 	req.Header.Add("X-Auth-Token", token)
 
 	res, err := http.DefaultClient.Do(req)
-	defer res.Body.Close()
 
 	if err != nil {
 		return err
 	}
+
+	defer res.Body.Close()
 
 	body, _ := ioutil.ReadAll(res.Body)
 

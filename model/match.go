@@ -2,6 +2,7 @@ package model
 
 import "time"
 
+// Match Model
 type Match struct {
 	ID       int       `json:"id"`
 	Date     time.Time `json:"utcDate"`
@@ -14,6 +15,7 @@ type Match struct {
 	AwayTeam Team      `json:"awayTeam"`
 }
 
+// Score Model
 type Score struct {
 	Winner    string    `json:"winner"`
 	Duration  string    `json:"duration"`
@@ -23,6 +25,7 @@ type Score struct {
 	Penalties TeamScore `json:"penalties"`
 }
 
+// TeamScore Model
 type TeamScore struct {
 	HomeTeam int `json:"homeTeam"`
 	AwayTeam int `json:"awayTeam"`

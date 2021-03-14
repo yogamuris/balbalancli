@@ -7,6 +7,7 @@ type StandingResponse struct {
 	Standing    []Standing  `json:"standings"`
 }
 
+// ScoreResponse Model
 type ScoreResponse struct {
 	Competition Competition `json:"competition"`
 	Matches     []Match     `json:"matches"`
