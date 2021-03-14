@@ -6,9 +6,10 @@ import (
 	"strconv"
 
 	"github.com/olekukonko/tablewriter"
+	"github.com/yogamuris/balbalancli/model"
 )
 
-func printStanding(response *StandingResponse) {
+func printStanding(response *model.StandingResponse) {
 	fmt.Printf("Competition ==> %d %s %s\n", response.Competition.ID, response.Competition.Code, response.Competition.Name)
 	for _, standing := range response.Standing {
 		fmt.Printf("Standing ==> %s %s\n", standing.Stage, standing.Type)
@@ -28,7 +29,7 @@ func printStanding(response *StandingResponse) {
 	}
 }
 
-func printScore(response *ScoreResponse) {
+func printScore(response *model.ScoreResponse) {
 	fmt.Printf("### %s ###\n", response.Competition.Name)
 
 	scoreTable := tablewriter.NewWriter(os.Stdout)
