@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"errors"
 	"log"
 
 	"github.com/profclems/go-dotenv"
@@ -32,6 +33,8 @@ func GetToken() (string, error) {
 	}
 
 	token := dotenv.GetString("TOKEN")
-
+	if token == "" {
+		return "", errors.New("Token is empty")
+	}
 	return token, nil
 }

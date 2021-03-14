@@ -9,25 +9,38 @@ import (
 	"github.com/yogamuris/balbalancli/model"
 )
 
-func GetStanding(league string) {
+func GetStanding(league string) error {
+	var err error
 	if league == "All" {
-		getAllStanding()
+		err = getAllStanding()
 	} else {
-		getStandingLeague(league)
+		err = getStandingLeague(league)
 	}
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
-func getAllStanding() {
+func getAllStanding() error {
+	var err error
 	for league := range GetAllCompetitionCode() {
-		getStandingLeague(league)
+		err = getStandingLeague(league)
+		if err != nil {
+			return err
+		}
 	}
+
+	return nil
 }
 
-func getStandingLeague(league string) {
+func getStandingLeague(league string) error {
 	token, err := GetToken()
 
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 
 	code := GetCompetitionCode(league)
@@ -40,7 +53,7 @@ func getStandingLeague(league string) {
 	res, err := http.DefaultClient.Do(req)
 
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 
 	defer res.Body.Close()
@@ -50,8 +63,9 @@ func getStandingLeague(league string) {
 	var response model.StandingResponse
 	err = json.Unmarshal([]byte(body), &response)
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 
 	printStanding(&response)
+	return nil
 }

@@ -25,10 +25,23 @@ var league string
 // scoreCmd represents the score command
 var scoreCmd = &cobra.Command{
 	Use:   "score",
-	Short: "Get the latest score.",
-	Long:  `Get the latest score.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		handler.GetLatestScore(league)
+	Short: "Show the latest score.",
+	Long: `Show the latest score.
+	Available league :
+	- CL  : UEFA Champions League
+	- PL  : English Premier League
+	- PD  : Primera Division
+	- SA  : Serie A
+	- BL1 : Bundesliga
+	- FL1 : League 1
+	- DED : Eredivisie
+	- PPL : Primeira Liga`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		err := handler.GetLatestScore(league)
+		if err != nil {
+			return err
+		}
+		return nil
 	},
 }
 

@@ -25,8 +25,8 @@ var leagueFlag string
 // standingCmd represents the standing command
 var standingCmd = &cobra.Command{
 	Use:   "standing",
-	Short: "Get standing of the League.",
-	Long: `Get standing of the League.
+	Short: "Show standing of the League.",
+	Long: `Show standing of the League.
 	Available league :
 	- CL  : UEFA Champions League
 	- PL  : English Premier League
@@ -38,11 +38,13 @@ var standingCmd = &cobra.Command{
 	- PPL : Primeira Liga
 	`,
 
-	Run: func(cmd *cobra.Command, args []string) {
-		if leagueFlag == "" {
-			leagueFlag = "All"
+	RunE: func(cmd *cobra.Command, args []string) error {
+		err := handler.GetStanding(leagueFlag)
+
+		if err != nil {
+			return err
 		}
-		handler.GetStanding(leagueFlag)
+		return nil
 	},
 }
 

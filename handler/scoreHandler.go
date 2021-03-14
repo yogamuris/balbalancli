@@ -4,31 +4,43 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"time"
 
 	"github.com/yogamuris/balbalancli/model"
 )
 
-func GetLatestScore(league string) {
+func GetLatestScore(league string) error {
+	var err error
+
 	if league == "All" {
-		getAllLeagueLatestScore()
+		err = getAllLeagueLatestScore()
 	} else {
-		getLeagueLatestScore(league)
+		err = getLeagueLatestScore(league)
 	}
+
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
-func getAllLeagueLatestScore() {
+func getAllLeagueLatestScore() error {
+	var err error
 	for league := range GetAllCompetitionCode() {
-		getLeagueLatestScore(league)
+		err = getLeagueLatestScore(league)
+		if err != nil {
+			return err
+		}
 	}
+
+	return nil
 }
 
-func getLeagueLatestScore(league string) {
+func getLeagueLatestScore(league string) error {
 	token, err := GetToken()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	code := GetCompetitionCode(league)
@@ -40,12 +52,11 @@ func getLeagueLatestScore(league string) {
 	req.Header.Add("X-Auth-Token", token)
 
 	res, err := http.DefaultClient.Do(req)
+	defer res.Body.Close()
 
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
-
-	defer res.Body.Close()
 
 	body, _ := ioutil.ReadAll(res.Body)
 
@@ -53,10 +64,12 @@ func getLeagueLatestScore(league string) {
 	err = json.Unmarshal([]byte(body), &response)
 
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 
 	printScore(&response)
+
+	return nil
 }
 
 func getTimeRange() (string, string) {
