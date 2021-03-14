@@ -30,7 +30,7 @@ var standingCmd = &cobra.Command{
 	Available league :
 	- CL  : UEFA Champions League
 	- PL  : English Premier League
-	- PD  : Primera Division
+	- PD  : Primera Division La Liga
 	- SA  : Serie A
 	- BL1 : Bundesliga
 	- FL1 : League 1
