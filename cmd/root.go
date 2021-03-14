@@ -16,22 +16,17 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/spf13/cobra"
-
-	homedir "github.com/mitchellh/go-homedir"
-	"github.com/spf13/viper"
 )
 
 var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "balbalancli",
-	Short: "Getting latest football score and standing",
-	Long:  `Getting latest football score and standing.`,
+	Use:     "balbalancli",
+	Short:   "Getting latest football score and standing.",
+	Long:    `Getting latest football score and standing.`,
+	Version: "v0.1.1",
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
@@ -40,7 +35,8 @@ var rootCmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	cobra.CheckErr(rootCmd.Execute())
+	// cobra.CheckErr(rootCmd.Execute())
+	rootCmd.Execute()
 }
 
 func init() {
@@ -59,23 +55,23 @@ func init() {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		cobra.CheckErr(err)
+	// if cfgFile != "" {
+	// 	// Use config file from the flag.
+	// 	viper.SetConfigFile(cfgFile)
+	// } else {
+	// 	// Find home directory.
+	// 	home, err := homedir.Dir()
+	// 	cobra.CheckErr(err)
 
-		// Search config in home directory with name ".balbalancli" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".balbalancli")
-	}
+	// 	// Search config in home directory with name ".balbalancli" (without extension).
+	// 	viper.AddConfigPath(home)
+	// 	viper.SetConfigName(".balbalancli")
+	// }
 
-	viper.AutomaticEnv() // read in environment variables that match
+	// viper.AutomaticEnv() // read in environment variables that match
 
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
-	}
+	// // If a config file is found, read it in.
+	// if err := viper.ReadInConfig(); err == nil {
+	// 	fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+	// }
 }

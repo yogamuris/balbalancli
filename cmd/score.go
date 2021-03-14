@@ -20,39 +20,24 @@ import (
 	"github.com/yogamuris/balbalancli/handler"
 )
 
-var leagueFlag string
+var league string
 
-// standingCmd represents the standing command
-var standingCmd = &cobra.Command{
-	Use:   "standing",
-	Short: "Get standing of the League.",
-	Long: `Get standing of the League.
-	Available league :
-	- CL  : UEFA Champions League
-	- PL  : English Premier League
-	- PD  : Primera Division
-	- SA  : Serie A
-	- BL1 : Bundesliga
-	- FL1 : League 1
-	- DED : Eredivisie
-	- PPL : Primeira Liga
-	`,
-
+// scoreCmd represents the score command
+var scoreCmd = &cobra.Command{
+	Use:   "score",
+	Short: "Get the latest score.",
+	Long:  `Get the latest score.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if leagueFlag == "" {
-			leagueFlag = "All"
-		}
-		handler.GetStanding(leagueFlag)
+		handler.GetLatestScore(league)
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(standingCmd)
+	rootCmd.AddCommand(scoreCmd)
+	scoreCmd.Flags().StringVarP(&league, "league", "l", "All", "Get the league latest score.")
 
-	standingCmd.Flags().StringVarP(&leagueFlag, "league", "l", "All", "Get the league standing.")
-
-	standingCmd.Example = `
-	balbalan standing -l PL
-	balbalan standing --league PL			
+	scoreCmd.Example = `
+	balbalan score -l PL
+	balbalan score --league PL			
 	`
 }

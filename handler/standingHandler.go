@@ -6,10 +6,6 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"os"
-	"strconv"
-
-	"github.com/olekukonko/tablewriter"
 	"github.com/yogamuris/balbalancli/model"
 )
 
@@ -67,25 +63,4 @@ func getStandingLeague(league string) {
 	}
 
 	printStanding(&response)
-}
-
-func printStanding(response *StandingResponse) {
-	fmt.Printf("Competition ==> %d %s %s\n", response.Competition.ID, response.Competition.Code, response.Competition.Name)
-	for _, standing := range response.Standing {
-		fmt.Printf("Standing ==> %s %s\n", standing.Stage, standing.Type)
-		tables := standing.Tables
-
-		t := tablewriter.NewWriter(os.Stdout)
-		t.SetHeader([]string{"Position", "Team", "PG", "Form", "W", "D", "L", "P", "GF", "GA", "GD"})
-		t.SetBorders(tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false})
-		t.SetCenterSeparator("|")
-
-		for _, table := range tables {
-			t.Append([]string{strconv.Itoa(table.Position), table.Team.Name, strconv.Itoa(table.PlayedGames), table.Form, strconv.Itoa(table.Won), strconv.Itoa(table.Draw), strconv.Itoa(table.Lost), strconv.Itoa(table.Points), strconv.Itoa(table.GoalsFor), strconv.Itoa(table.GoalsAgainst), strconv.Itoa(table.GoalDifference)})
-		}
-
-		t.Render()
-
-		fmt.Println()
-	}
 }
