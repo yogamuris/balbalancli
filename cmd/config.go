@@ -34,7 +34,6 @@ var configCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		if tokenFlag == "" {
-			//fmt.Println("Input your Token value")
 			color.Red(fmt.Sprintf("Error: flag required. \nExample : \n%s", cmd.Example))
 		} else {
 			handler.SetToken(tokenFlag)

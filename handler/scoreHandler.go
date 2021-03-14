@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -40,7 +41,7 @@ func getAllLeagueLatestScore() error {
 func getLeagueLatestScore(league string) error {
 	token, err := GetToken()
 	if err != nil {
-		return err
+		return errors.New("Error happened.")
 	}
 
 	code := GetCompetitionCode(league)
@@ -54,7 +55,7 @@ func getLeagueLatestScore(league string) error {
 	res, err := http.DefaultClient.Do(req)
 
 	if err != nil {
-		return err
+		return errors.New("Error happened. Check your internet connection.")
 	}
 
 	defer res.Body.Close()
@@ -65,7 +66,7 @@ func getLeagueLatestScore(league string) error {
 	err = json.Unmarshal([]byte(body), &response)
 
 	if err != nil {
-		return err
+		return errors.New("Error happened.")
 	}
 
 	printScore(&response)
