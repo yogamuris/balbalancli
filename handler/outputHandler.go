@@ -10,15 +10,12 @@ import (
 )
 
 func printStanding(response *model.StandingResponse) {
-	fmt.Printf("Competition ==> %d %s %s\n", response.Competition.ID, response.Competition.Code, response.Competition.Name)
+	fmt.Printf("### %s ###\n\n", response.Competition.Name)
 	for _, standing := range response.Standing {
-		fmt.Printf("Standing ==> %s %s\n", standing.Stage, standing.Type)
 		tables := standing.Tables
 
 		standingTable := tablewriter.NewWriter(os.Stdout)
 		standingTable.SetHeader([]string{"Position", "Team", "PG", "Form", "W", "D", "L", "P", "GF", "GA", "GD"})
-		standingTable.SetBorders(tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false})
-		standingTable.SetCenterSeparator("|")
 
 		for _, table := range tables {
 			standingTable.Append([]string{strconv.Itoa(table.Position), table.Team.Name, strconv.Itoa(table.PlayedGames), table.Form, strconv.Itoa(table.Won), strconv.Itoa(table.Draw), strconv.Itoa(table.Lost), strconv.Itoa(table.Points), strconv.Itoa(table.GoalsFor), strconv.Itoa(table.GoalsAgainst), strconv.Itoa(table.GoalDifference)})
