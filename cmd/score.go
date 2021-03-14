@@ -47,8 +47,8 @@ var scoreCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(scoreCmd)
-	scoreCmd.Flags().StringVarP(&league, "league", "l", "All", "Get the league latest score.")
-
+	scoreCmd.Flags().StringVarP(&league, "league", "l", "", "get the league latest score.")
+	scoreCmd.MarkFlagRequired("league")
 	scoreCmd.Example = `
 	balbalan score -l PL
 	balbalan score --league PL			

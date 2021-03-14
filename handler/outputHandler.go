@@ -39,8 +39,23 @@ func printScore(response *model.ScoreResponse) {
 		for _, match := range response.Matches {
 			scoreTable.Append([]string{match.Date.Format("02-01-2006"), match.HomeTeam.Name, strconv.Itoa(match.Scores.FullTime.HomeTeam), strconv.Itoa(match.Scores.FullTime.AwayTeam), match.AwayTeam.Name})
 		}
-
-		scoreTable.Render()
-		fmt.Println()
 	}
+
+	scoreTable.Render()
+	fmt.Println()
+}
+
+func PrintLeagueList() {
+	leagueTable := tablewriter.NewWriter(os.Stdout)
+	leagueTable.SetHeader([]string{"Code", "League"})
+	leagueTable.Append([]string{"PL", "English Premier League"})
+	leagueTable.Append([]string{"PD", "Primera Division La Liga"})
+	leagueTable.Append([]string{"SA", "Serie A"})
+	leagueTable.Append([]string{"BL1", "Bundesliga"})
+	leagueTable.Append([]string{"FL1", "Ligue 1"})
+	leagueTable.Append([]string{"DED", "Eredivisie"})
+	leagueTable.Append([]string{"PPL", "Primeira Liga"})
+	leagueTable.Append([]string{"CL", "UEFA Champions League"})
+
+	leagueTable.Render()
 }

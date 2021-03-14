@@ -16,10 +16,6 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
-
-	"github.com/fatih/color"
-
 	"github.com/spf13/cobra"
 	"github.com/yogamuris/balbalancli/handler"
 )
@@ -31,19 +27,20 @@ var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "Setting the BalbalanCLI Configuration.",
 	Long:  `Setting the BalbalanCLI Configuration.`,
-	Run: func(cmd *cobra.Command, args []string) {
-
-		if tokenFlag == "" {
-			color.Red(fmt.Sprintf("Error: flag required. \nExample : \n%s", cmd.Example))
-		} else {
-			handler.SetToken(tokenFlag)
+	RunE: func(cmd *cobra.Command, args []string) error {
+		err := handler.SetToken(tokenFlag)
+		if err != nil {
+			return err
 		}
+		return nil
+
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(configCmd)
-	configCmd.Flags().StringVarP(&tokenFlag, "token", "t", "", "Set API Token")
+	configCmd.Flags().StringVarP(&tokenFlag, "token", "t", "", "set API Token")
+	configCmd.MarkFlagRequired("token")
 	configCmd.Example = `
 	balbalan config -t YOUR_TOKEN_VALUE
 	balbalan config --token YOUR_TOKEN_VALUE			

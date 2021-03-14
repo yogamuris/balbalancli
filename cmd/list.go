@@ -17,28 +17,19 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
+	"github.com/yogamuris/balbalancli/handler"
 )
 
-var cfgFile string
-
-// rootCmd represents the base command when called without any subcommands
-var rootCmd = &cobra.Command{
-	Use:     "balbalancli",
-	Short:   "Getting latest football score and standing.",
-	Long:    `Getting latest football score and standing.`,
-	Version: "v1.0.1",
-}
-
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
-	rootCmd.Execute()
+// listCmd represents the list command
+var listCmd = &cobra.Command{
+	Use:   "list",
+	Short: "Get list of available league.",
+	Long:  `Get list of available league.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		handler.PrintLeagueList()
+	},
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
-}
-
-// initConfig reads in config file and ENV variables if set.
-func initConfig() {
+	rootCmd.AddCommand(listCmd)
 }

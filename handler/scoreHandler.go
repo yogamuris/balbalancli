@@ -12,33 +12,6 @@ import (
 )
 
 func GetLatestScore(league string) error {
-	var err error
-
-	if league == "All" {
-		err = getAllLeagueLatestScore()
-	} else {
-		err = getLeagueLatestScore(league)
-	}
-
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func getAllLeagueLatestScore() error {
-	var err error
-	for league := range GetAllCompetitionCode() {
-		err = getLeagueLatestScore(league)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-func getLeagueLatestScore(league string) error {
 	token, err := GetToken()
 	if err != nil {
 		return errors.New("Error happened.")

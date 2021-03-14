@@ -50,9 +50,8 @@ var standingCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(standingCmd)
-
-	standingCmd.Flags().StringVarP(&leagueFlag, "league", "l", "All", "Get the league standing.")
-
+	standingCmd.Flags().StringVarP(&leagueFlag, "league", "l", "", "get the league standing.")
+	standingCmd.MarkFlagRequired("league")
 	standingCmd.Example = `
 	balbalan standing -l PL
 	balbalan standing --league PL			

@@ -3,18 +3,18 @@ package handler
 import (
 	"errors"
 	"io/ioutil"
-	"log"
 	"os"
 
 	"github.com/fatih/color"
 	"github.com/profclems/go-dotenv"
 )
 
-func SetToken(token string) {
+func SetToken(token string) error {
+
 	if _, err := os.Stat(".env"); os.IsNotExist(err) {
 		err := ioutil.WriteFile(".env", []byte("TOKEN="), 0755)
 		if err != nil {
-			log.Fatal(err)
+			return err
 		}
 	}
 
@@ -26,10 +26,11 @@ func SetToken(token string) {
 	err := dotenv.Save()
 
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	color.Green("Token added successfully!")
+	return nil
 }
 
 func GetToken() (string, error) {

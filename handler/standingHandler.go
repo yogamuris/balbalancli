@@ -11,33 +11,6 @@ import (
 )
 
 func GetStanding(league string) error {
-	var err error
-	if league == "All" {
-		err = getAllStanding()
-	} else {
-		err = getStandingLeague(league)
-	}
-
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func getAllStanding() error {
-	var err error
-	for league := range GetAllCompetitionCode() {
-		err = getStandingLeague(league)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-func getStandingLeague(league string) error {
 	token, err := GetToken()
 
 	if err != nil {
