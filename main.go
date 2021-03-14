@@ -15,7 +15,9 @@ limitations under the License.
 */
 package main
 
-import "github.com/yogamuris/balbalancli/cmd"
+import (
+	"github.com/yogamuris/balbalancli/cmd"
+)
 
 func main() {
 	cmd.Execute()
