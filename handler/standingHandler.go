@@ -34,6 +34,10 @@ func GetStanding(league string) error {
 
 	body, _ := ioutil.ReadAll(res.Body)
 
+	if res.StatusCode != 200 {
+		return GetResponseError(body)
+	}
+
 	var response model.StandingResponse
 	err = json.Unmarshal([]byte(body), &response)
 	if err != nil {

@@ -3,22 +3,24 @@ package handler
 import (
 	"errors"
 	"io/ioutil"
+	"log"
 	"os"
+	"os/user"
 
 	"github.com/fatih/color"
 	"github.com/profclems/go-dotenv"
 )
 
 func SetToken(token string) error {
-
-	if _, err := os.Stat(".env"); os.IsNotExist(err) {
-		err := ioutil.WriteFile(".env", []byte("TOKEN="), 0755)
+	homedir := getHomedir()
+	if _, err := os.Stat(homedir + "\\.balbalancli.env"); os.IsNotExist(err) {
+		err := ioutil.WriteFile(homedir+"\\.balbalancli.env", []byte("TOKEN="), 0755)
 		if err != nil {
 			return err
 		}
 	}
 
-	dotenv.SetConfigFile(".env")
+	dotenv.SetConfigFile(homedir + "\\.balbalancli.env")
 	dotenv.LoadConfig()
 
 	dotenv.Set("TOKEN", token)
@@ -34,6 +36,8 @@ func SetToken(token string) error {
 }
 
 func GetToken() (string, error) {
+	homedir := getHomedir()
+	dotenv.SetConfigFile(homedir + "\\.balbalancli.env")
 	err := dotenv.LoadConfig()
 
 	if err != nil {
@@ -43,7 +47,17 @@ func GetToken() (string, error) {
 
 	token := dotenv.GetString("TOKEN")
 	if token == "" {
+		color.Red("Token is empty, set up your token with \"balbalancli config --token YOUR_TOKEN_VALUE\" command")
 		return "", errors.New("Token is empty")
 	}
 	return token, nil
+}
+
+func getHomedir() string {
+	user, err := user.Current()
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+	homeDirectory := user.HomeDir
+	return homeDirectory
 }

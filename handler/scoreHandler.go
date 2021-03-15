@@ -14,7 +14,7 @@ import (
 func GetLatestScore(league string) error {
 	token, err := GetToken()
 	if err != nil {
-		return errors.New("Error happened.")
+		return err
 	}
 
 	code := GetCompetitionCode(league)
@@ -34,6 +34,10 @@ func GetLatestScore(league string) error {
 	defer res.Body.Close()
 
 	body, _ := ioutil.ReadAll(res.Body)
+
+	if res.StatusCode != 200 {
+		return GetResponseError(body)
+	}
 
 	var response model.ScoreResponse
 	err = json.Unmarshal([]byte(body), &response)
