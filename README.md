@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/yogamuris/balbalancli">
-    <img src="https://raw.githubusercontent.com/yogamuris/balbalancli/1474e663bbbfa9d18e80239e8de12f7c42b13e34/assets/img.png" alt="Logo" width="80" height="80">
+    <img src="asset/img.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">BalbalanCLI</h3>
@@ -14,23 +14,23 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="##setup-the-api-key">Setup the API Key</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li>
+    <a href="#usage">Usage</a>
+        <ul>
+            <li><a href="#available-league">Available League</a></li>
+            <li><a href="#available-command">Available Command</a></li>
+        </ul>
+    </li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
+    <li><a href="#go-package">Go Package</a></li>
   </ol>
 </details>
 
