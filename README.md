@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/yogamuris/balbalancli">
-    <img src="asset/img.png" alt="Logo" width="80" height="80">
+    <img src="assets/img.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">BalbalanCLI</h3>
