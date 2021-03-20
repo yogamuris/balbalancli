@@ -11,18 +11,23 @@ import (
 
 func printStanding(response *model.StandingResponse) {
 	fmt.Printf("### %s ###\n\n", response.Competition.Name)
-	for _, standing := range response.Standing {
-		tables := standing.Tables
 
-		standingTable := tablewriter.NewWriter(os.Stdout)
-		standingTable.SetHeader([]string{"Position", "Team", "PG", "Form", "W", "D", "L", "P", "GF", "GA", "GD"})
+	if len(response.Standing) == 0 {
+		fmt.Println("No Football Standing")
+	} else {
+		for _, standing := range response.Standing {
+			tables := standing.Tables
 
-		for _, table := range tables {
-			standingTable.Append([]string{strconv.Itoa(table.Position), table.Team.Name, strconv.Itoa(table.PlayedGames), table.Form, strconv.Itoa(table.Won), strconv.Itoa(table.Draw), strconv.Itoa(table.Lost), strconv.Itoa(table.Points), strconv.Itoa(table.GoalsFor), strconv.Itoa(table.GoalsAgainst), strconv.Itoa(table.GoalDifference)})
+			standingTable := tablewriter.NewWriter(os.Stdout)
+			standingTable.SetHeader([]string{"Position", "Team", "PG", "Form", "W", "D", "L", "P", "GF", "GA", "GD"})
+
+			for _, table := range tables {
+				standingTable.Append([]string{strconv.Itoa(table.Position), table.Team.Name, strconv.Itoa(table.PlayedGames), table.Form, strconv.Itoa(table.Won), strconv.Itoa(table.Draw), strconv.Itoa(table.Lost), strconv.Itoa(table.Points), strconv.Itoa(table.GoalsFor), strconv.Itoa(table.GoalsAgainst), strconv.Itoa(table.GoalDifference)})
+			}
+
+			standingTable.Render()
+			fmt.Println()
 		}
-
-		standingTable.Render()
-		fmt.Println()
 	}
 }
 
@@ -32,17 +37,16 @@ func printScore(response *model.ScoreResponse) {
 	scoreTable := tablewriter.NewWriter(os.Stdout)
 
 	if len(response.Matches) == 0 {
-		fmt.Println("No Match")
+		fmt.Println("No Football Match")
 		fmt.Println()
 
 	} else {
 		for _, match := range response.Matches {
 			scoreTable.Append([]string{match.Date.Format("02-01-2006"), match.HomeTeam.Name, strconv.Itoa(match.Scores.FullTime.HomeTeam), strconv.Itoa(match.Scores.FullTime.AwayTeam), match.AwayTeam.Name})
 		}
+		scoreTable.Render()
+		fmt.Println()
 	}
-
-	scoreTable.Render()
-	fmt.Println()
 }
 
 func PrintLeagueList() {
