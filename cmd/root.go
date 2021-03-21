@@ -26,7 +26,7 @@ var rootCmd = &cobra.Command{
 	Use:     "balbalancli",
 	Short:   "Getting latest football score and standing.",
 	Long:    `Getting latest football score and standing.`,
-	Version: "v1.0.1",
+	Version: "v0.1.1",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
